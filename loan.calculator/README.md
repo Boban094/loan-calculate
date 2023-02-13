@@ -13,3 +13,12 @@ My idea is in the future to have an option for user to create an account, and wh
 That way interest rate will be depending on the bank he chooses, he will have an option to see all of his previous calculations and can decide where to get his loan from.
 
 This will require an auth-service, user-service and a bit of expanding of the calculation service I created
+
+Body for the post request is -
+{
+"loanAmount" : 78000.00,
+"interestRate" : 4.8,
+"months" : 31
+}
+
+POST request path is -  localhost:8080/loancalculate

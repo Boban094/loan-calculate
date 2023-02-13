@@ -12,15 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping(value = "/")
 public class LoanCalculateController {
 
     @Autowired
     CalculateLoanAndPaymentService calculateLoanAndPaymentService;
-    @PostMapping(value = "loancalculate")
+    @PostMapping(value = "/loancalculate")
     public ResponseEntity<List<MonthlyPaymentPlan>> calculatePaymentSaveAndReturn(@RequestBody PaymentInfo paymentInfo){
         try{
             if(paymentInfo != null){
