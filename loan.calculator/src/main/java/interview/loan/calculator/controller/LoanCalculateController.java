@@ -24,9 +24,10 @@ public class LoanCalculateController {
     public ResponseEntity<List<MonthlyPaymentPlan>> calculatePaymentSaveAndReturn(@RequestBody PaymentInfo paymentInfo){
         try{
             if(paymentInfo != null){
-                PaymentInfo savedPaymentInfo = calculateLoanAndPaymentService.savePaymentInfo(paymentInfo);
-                if(savedPaymentInfo != null){
-                    List<MonthlyPaymentPlan> monthlyPaymentPlanList = calculateLoanAndPaymentService.calculateMonthlyPaymentPlan(savedPaymentInfo);
+                List<MonthlyPaymentPlan> monthlyPaymentPlanList = calculateLoanAndPaymentService.calculateMonthlyPaymentPlan(paymentInfo);
+                if(monthlyPaymentPlanList != null && !monthlyPaymentPlanList.isEmpty()){
+                    paymentInfo.setMonthlyValue(monthlyPaymentPlanList.get(0).getMonthlyValue());
+                    calculateLoanAndPaymentService.savePaymentInfo(paymentInfo);
                     return new ResponseEntity<>(monthlyPaymentPlanList, HttpStatus.OK);
                 }
             }
