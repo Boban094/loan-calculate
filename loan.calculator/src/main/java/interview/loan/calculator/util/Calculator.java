@@ -15,15 +15,15 @@ public final class Calculator {
     private static double interestRate;
     private static int months;
     public static List<MonthlyPaymentPlan> calculateMonthlyPaymentPlan(PaymentInfo paymentInfo){
-            double returnPaymentAmount = calculateReturnPaymentAmount(paymentInfo);
-            double returnPaymentByMonth = returnPaymentAmount/months;
+            double returnPaymentAmountByMonth = calculateReturnPaymentAmount(paymentInfo);
+            double returnPaymentTotal = returnPaymentAmountByMonth * months;
 
             List<MonthlyPaymentPlan> monthlyPaymentPlanList = new ArrayList<>();
 
         int i = 0;
         while (i < months) {
-            returnPaymentAmount-= returnPaymentByMonth;
-            MonthlyPaymentPlan monthlyPaymentPlan = new MonthlyPaymentPlan(returnPaymentByMonth, returnPaymentAmount);
+            returnPaymentTotal-= returnPaymentAmountByMonth;
+            MonthlyPaymentPlan monthlyPaymentPlan = new MonthlyPaymentPlan(returnPaymentAmountByMonth, returnPaymentTotal);
             monthlyPaymentPlanList.add(monthlyPaymentPlan);
             i++;
         }
@@ -38,7 +38,11 @@ public final class Calculator {
 
         double i = interestRate / PERCENT_IN_DECIMAL / YEAR_IN_MONTHS;
 
-        return (loanAmount * i * (Math.pow(1 + i, months))) / (Math.pow(1 + i, months) - 1);
+        double upper = (loanAmount * i * (Math.pow(1 + i, months)));
+
+        double lower = Math.pow(1 + i, months) - 1;
+
+        return upper / lower;
 
     }
 }

@@ -17,12 +17,11 @@ public class PaymentInfoEntity implements Serializable {
     }
 
     public PaymentInfoEntity() {
-
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "loan_amount")
     private double loanAmount;

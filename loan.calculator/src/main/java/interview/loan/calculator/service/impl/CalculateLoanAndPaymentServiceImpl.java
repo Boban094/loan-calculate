@@ -31,9 +31,7 @@ public class CalculateLoanAndPaymentServiceImpl implements CalculateLoanAndPayme
         List<MonthlyPaymentPlan> monthlyPaymentPlanList = calculateMonthlyPaymentPlan(paymentInfo);
         paymentInfo.setMonthlyValue(monthlyPaymentPlanList.get(0).getMonthlyValue());
 
-        PaymentInfoEntity paymentInfoEntity = paymentConverter.toEntity(paymentInfo);
-
-        loanRepository.save(paymentInfoEntity);
+        loanRepository.save(paymentConverter.toEntity(paymentInfo));
 
 
         return monthlyPaymentPlanList;
