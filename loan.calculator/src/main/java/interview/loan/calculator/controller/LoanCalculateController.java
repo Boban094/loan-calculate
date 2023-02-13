@@ -5,7 +5,6 @@ import interview.loan.calculator.model.PaymentInfo;
 import interview.loan.calculator.service.CalculateLoanAndPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +24,9 @@ public class LoanCalculateController {
     public ResponseEntity<List<MonthlyPaymentPlan>> calculatePaymentSaveAndReturn(@RequestBody PaymentInfo paymentInfo){
         try{
             if(paymentInfo != null){
-                List<MonthlyPaymentPlan> monthlyPaymentPlanList = calculateLoanAndPaymentService.savePaymentInfoAndGetMonthlyPaymentPlan(paymentInfo);
-                if(monthlyPaymentPlanList != null && !monthlyPaymentPlanList.isEmpty()){
+                PaymentInfo savedPaymentInfo = calculateLoanAndPaymentService.savePaymentInfo(paymentInfo);
+                if(savedPaymentInfo != null){
+                    List<MonthlyPaymentPlan> monthlyPaymentPlanList = calculateLoanAndPaymentService.calculateMonthlyPaymentPlan(savedPaymentInfo);
                     return new ResponseEntity<>(monthlyPaymentPlanList, HttpStatus.OK);
                 }
             }

@@ -3,20 +3,25 @@ package interview.loan.calculator.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 @Entity
 @Table(name = "PaymentInfo")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentInfoEntity implements Serializable {
     private static final long serialVersionUID = 12345678765443L;
 
-    public PaymentInfoEntity(double loanAmount, double interestRate, int months) {
+    public PaymentInfoEntity(double loanAmount, double interestRate, int months, double monthlyValue) {
         this.loanAmount = loanAmount;
         this.interestRate = interestRate;
         this.months = months;
-    }
-
-    public PaymentInfoEntity() {
+        this.monthlyValue = monthlyValue;
     }
 
     @Id
@@ -62,5 +67,9 @@ public class PaymentInfoEntity implements Serializable {
 
     public void setMonthlyValue(double monthlyValue) {
         this.monthlyValue = monthlyValue;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
